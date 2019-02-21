@@ -1,0 +1,395 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "UBER MANAGMENT SYSTEM ...",
+        "version": "1.0.0",
+        "title": "UBER BOOKING",
+        "host": "localhost:9653",
+        "basePath": "/",
+        "schemes": [
+            "http"
+        ]
+    },
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Assign Token to Admin BY login",
+                "operationId": "1",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "Enter your email here:",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Enter your password here:",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/admin/showbookings/{token}/{status}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Show details of booking of given status",
+                "description": "",
+                "operationId": "2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "Enter your token  here:",
+                        "required": true
+                    },
+                    {
+                        "in": "path",
+                        "name": "status",
+                        "description": "Enter status of booking:",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/admin/assigndriver/{token}": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Assigned driver to Booking",
+                "operationId": "3",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "Enter Your token here : ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/customer/signup": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Enroll new Customer",
+                "description": "",
+                "operationId": "4",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "first_name",
+                        "description": "Enter First_Name of Customer: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "last_name",
+                        "description": "Enter Last_Name of Customer:",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "phone_no",
+                        "description": "Enter Phone_no here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "Enter email here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Enter your password here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "confirm_password",
+                        "description": "Enter  password to confirm : ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/customer/login": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Customer Login",
+                "description": "",
+                "operationId": "5",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name":"email",
+                        "description": "Enter your email here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Enter your password here : ",
+                        "required": true
+                    }
+                    
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/customer/createbooking/{token}": {
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "createbooking....",
+                "description": "",
+                "operationId": "6",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "Enter Token to validate: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "source_lat",
+                        "description": "Enter source latitude here: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "source_long",
+                        "description": "Enter source longitude here: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "destination_lat",
+                        "description": "Enter destination latitude here: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "destination_long",
+                        "description": "Enter destination longitude here: ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/driver/signup": {
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Enroll new Driver",
+                "description": "",
+                "operationId": "7",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "first_name",
+                        "description": "Enter First_Name of Driver: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "last_name",
+                        "description": "Enter Last_Name of Driver:",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "phone_no",
+                        "description": "Enter Phone_no here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "Enter email here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Enter your password here : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "confirm_password",
+                        "description": "Enter  password to confirm : ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "vehicle_no",
+                        "description": "Enter your vehicle_no here : ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+       
+        "/driver/login": {
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Driver Login",
+                "description": "",
+                "operationId": "8",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "Enter your  Email: ",
+                        "required": true
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Enter your Password: ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+        "/driver/showallbooking/{token}": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "showAllBookingOfDriver",
+                "description": "",
+                "operationId": "7",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "Enter Token to validate: ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        },
+
+        "/driver/completebooking/{token}": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "markDriverBookingComplete",
+                "description": "",
+                "operationId": "7",
+                "consumes": "application/json",
+                "produces": "application/json",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "Enter Token to validate: ",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    }
+                },
+                "security": {}
+            }
+        }
+     
+     }
+}

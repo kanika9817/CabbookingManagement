@@ -1,0 +1,23 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "first",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "boom": "^7.3.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-boom": "^2.0.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "mysql": "^2.16.0",
+    "node-datetime": "^2.1.2",
+    "nodemon": "^1.18.9"
+  }
+}
