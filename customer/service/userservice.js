@@ -57,8 +57,9 @@ module.exports.checkmail = (req, res, next) => {
             }
 
             else {
+               
                 if (result[0] == undefined) {
-                    reject(reject)
+                    resolve(false)
                 }
                 else {
                     resolve(true)
@@ -77,7 +78,7 @@ module.exports.check = (req, res, next) => {
         db.connection.query("SELECT password FROM user WHERE email=?", [req.body.email], function (err, result) {
 
             if (err) {
-                reject(config.errorCode[0])
+                reject(false)
             }
 
             else {
@@ -94,7 +95,7 @@ module.exports.check = (req, res, next) => {
 }
 
 
-//insert customer booking
+//insert_customer_booking_by_user_id
 module.exports.booking = (req, res) => {
 
     return new Promise(function (resolve, reject) {
@@ -107,8 +108,7 @@ module.exports.booking = (req, res) => {
                 result1 = result[0].user_id
                 let data = datetime.create();
                 let format = data.format('Y-m-d H:M:S')
-
-                db.connection.query("INSERT INTO booking(user_id,source_lat,source_lng,destination_lat,destination_lng,created_at) VALUES (?,?,?,?,?,?)", [result1, req.body.source_lat, req.body.source_long, req.body.destination_lat, req.body.destination_long, format], function (err, result) {
+             db.connection.query("INSERT INTO booking(user_id,source_lat,source_lng,destination_lat,destination_lng,created_at) VALUES (?,?,?,?,?,?)", [result1, req.body.source_lat, req.body.source_long, req.body.destination_lat, req.body.destination_long, format], function (err, result) {
                     if (err) {
                         reject(false)
                     }

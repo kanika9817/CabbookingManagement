@@ -19,7 +19,7 @@ module.exports.createHash=(req,res,next)=>
 async function checkDriver(req,res,next) {
 
      let data=await service.check(req,res)/* check email of driver */
-     console.log(data)
+    
      const match =await bcrpyt.compare(req.body.password,data);
      if(match)
      {
@@ -54,7 +54,7 @@ else
 
 }
 
-//func to verfiy token
+//vaerify_driver_token
 module.exports.verifytokn=(req,res,next)=>
 {
     jwt.verify(req.params.token,config.toknKeys[0].driverKey,(err, decoded)=> {
@@ -68,7 +68,6 @@ module.exports.verifytokn=(req,res,next)=>
         else{
         req.email=decoded.email
             next()
-        
         }
       });
 }

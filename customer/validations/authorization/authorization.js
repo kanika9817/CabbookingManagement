@@ -1,12 +1,12 @@
-const bcrpyt         =          require('bcrypt')
-const jwt            =          require('jsonwebtoken')
-const saltrounds     =           10
-const service        =          require('../../service/userservice')
-const config         =          require('../../../config/test')
-const response       =          require('../../../properties/constant')
+const bcrpyt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const saltrounds = 10
+const service = require('../../service/userservice')
+const config = require('../../../config/test')
+const response = require('../../../properties/constant')
 
 
-//func to createhash
+//func to create_hash
 module.exports.createPswdHash = (req, res, next) => {
 
     bcrpyt.hash(req.body.password, saltrounds).then(function (hash) {
@@ -20,7 +20,6 @@ module.exports.createPswdHash = (req, res, next) => {
 async function checkUser(req, res, next) {
 
     let data = await service.check(req, res)
-
     const match = await bcrpyt.compare(req.body.password, data);
 
     if (match) {
@@ -29,13 +28,15 @@ async function checkUser(req, res, next) {
     else {
         res.json({
             status: response.responseFlags.INVALID_PASSWORD,
-            message: INVALID_PASSWORD,
+            message: response.responseMessages.INVALID_PASSWORD
 
         })
     }
 }
 
-//func to gen token
+/**
+ * genrate_customer_token
+ */
 module.exports.genrateToken = (req, res, next) => {
     jwt.sign({ email: req.body.email }, config.toknKeys[0].customerKey, (err, token) => {
         if (err) {
@@ -45,7 +46,6 @@ module.exports.genrateToken = (req, res, next) => {
             })
         }
         else {
-
             req.body.token = token
             next()
         }
@@ -65,26 +65,13 @@ module.exports.verifytokn = (req, res, next) => {
             })
         }
         else {
-
-            req.email = decoded.email
-
+          req.email = decoded.email
             next()
 
         }
     });
 }
 
-//func to gen temp token
-module.exports.temptoken = (req, res) => {
-    jwt.sign({ email: req.body.email }, token_key, { expiresIn: 300 }, (err, token) => {
-        if (err) {
-            res.send("your temporary token not generated")
-        }
-        else
-            res.send("token generated that expires in 5 min:\n\n" + token)
 
-    })
-
-}
 module.exports.checkUser = checkUser
 

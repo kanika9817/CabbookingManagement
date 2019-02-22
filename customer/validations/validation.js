@@ -1,6 +1,11 @@
-const joi    =         require('joi');
+const joi = require('joi');
 
-//validation schema
+/**
+ * 
+ * @param {first_name,last_name,email,phone_no,pswd} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const userValidater = (req, res, next) => {
 
     const emp = joi.object().keys({
@@ -28,9 +33,14 @@ const userValidater = (req, res, next) => {
         }
     })
 }
-//validation email and pswd schema
+/**
+ * 
+ * @param {email,pswd} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const Valid = (req, res, next) => {
-    console.log("validater")
+
     const emp = joi.object().keys({
 
         email: joi.string().email().required(),
@@ -54,6 +64,12 @@ const Valid = (req, res, next) => {
         }
     })
 }
+/**
+ * 
+ * @param {source_lat,source_lng,destination_lat,destination_lng} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const bookingValidator = (req, res, next) => {
 
     const emp = joi.object().keys({

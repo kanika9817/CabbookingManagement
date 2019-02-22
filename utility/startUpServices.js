@@ -14,7 +14,7 @@ Promise.coroutine(function* () {
   }
 })().catch((err)=>{
 res.json({
-  status:400,
+  status:response.responseFlags.BAD_REQUEST,
   message:response.responseMessages.ADMIN_INSERTION_PROBLEM
 })
 })}

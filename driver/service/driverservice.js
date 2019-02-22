@@ -7,8 +7,7 @@ module.exports.InsertDriverData = (req, res) => {
     return new Promise(function (resolve, reject) {
         let current = datetime.create();
         let format = current.format('Y-m-d H:M:S');
-
-        db.connection.query("INSERT INTO driver(first_name,last_name,email,password,phone_no,vehicle_no,created_at) VALUES (?,?,?,?,?,?,?)", [req.body.first_name, req.body.last_name, req.body.email, req.body.password, req.body.phone_no, req.body.vehicle_no, format], (err, result) => {
+     db.connection.query("INSERT INTO driver(first_name,last_name,email,password,phone_no,vehicle_no,created_at) VALUES (?,?,?,?,?,?,?)", [req.body.first_name, req.body.last_name, req.body.email, req.body.password, req.body.phone_no, req.body.vehicle_no, format], (err, result) => {
             if (err) {
 
                 reject(false)
@@ -99,9 +98,10 @@ module.exports.check = (req, res, next) => {
 }
 //show all bookings of driver  
 module.exports.showBookings = (req, res) => {
-    return new Promise(function (resolve, reject) {
-        db.connection.query("SELECT booking_id,user_id,booking.booking_id,source_lat,source_lng,destination_lat,destination_lng, FROM booking WHERE driver_id=(SELECT driver_id from driver WHERE email=?)", [req.email], (err, result) => {
+    return new Promise((resolve, reject)=> {
+        db.connection.query("SELECT booking_id,user_id,driver_id,source_lat,source_lng,destination_lat,destination_lng FROM booking WHERE driver_id=(SELECT driver_id from driver WHERE email=?)", [req.email], (err, result) => {
             if (err) {
+            
                 reject("ERRROR IN FETCHING BOOKING")
             }
 

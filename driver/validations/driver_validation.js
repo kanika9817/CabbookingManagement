@@ -1,6 +1,11 @@
 const joi      =    require('joi');
 
-//validation schema
+/**
+ * 
+ * @param {driver name,phone_no,email,phone_no,pswd,vehicle_no} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const driverInfoValidater =(req, res, next) =>{
 
     const emp = joi.object().keys({
@@ -20,7 +25,7 @@ const driverInfoValidater =(req, res, next) =>{
             res.json(
                 {
                     status: 400,
-                    message: 'invalid information',
+                    message: 'INVALID INFORMATION',
                     data: err.details[0].message.replace(/["]/ig, '')
                 })
         }
@@ -30,9 +35,14 @@ const driverInfoValidater =(req, res, next) =>{
         }
     })
 }
-//validate email and passwd
+/**
+ * 
+ * @param {driver email,pswd} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const valid =(req, res, next) =>{
-console.log("validater")
+
     const emp = joi.object().keys({
         
         email: joi.string().email().required(),
@@ -46,7 +56,7 @@ console.log("validater")
             res.json(
                 {
                     status: 400,
-                    message: 'invalid information',
+                    message: 'INVALID INFORMATION',
                     data: err.details[0].message.replace(/["]/ig, '')
                 }
          )
@@ -58,5 +68,8 @@ console.log("validater")
         }
     })
 }
+
+
+
 module.exports.driverInfoValidater=driverInfoValidater;
 module.exports.valid=valid

@@ -1,10 +1,10 @@
-const service       =        require('../service/userservice')
-const config        =        require('../../config/test')
-const response      =        require('../../properties/constant')
-const Promise       =        require('bluebird')
+const service = require('../service/userservice')
+const config = require('../../config/test')
+const response = require('../../properties/constant')
+const Promise = require('bluebird')
 
 
-//customer signup
+//customer_signup
 module.exports.customerSignup = (req, res) => {
     Promise.coroutine(function* () {
         let userData = yield service.addUserData(req, res)
@@ -34,7 +34,6 @@ module.exports.customerSignup = (req, res) => {
 module.exports.printCustomerDetails = (req, res) => {
     Promise.coroutine(function* () {
         let resultOfCustomer = yield service.customerDetail(req, res)
-
         if (resultOfCustomer) {
             res.json(
                 {
@@ -50,21 +49,21 @@ module.exports.printCustomerDetails = (req, res) => {
                     }
                 })
         }
-        else {
-            res.json({
-                status: response.responseFlags.NO_DATA_FOUND,
-                message: response.responseMessages.NO_DATA_FOUND
-            })
-        }
-    })()
+
+    })().catch((err) => {
+        res.json({
+            status: response.responseFlags.NO_DATA_FOUND,
+            message: response.responseMessages.NO_DATA_FOUND
+        })
+    })
 }
 
 
 
 //check customer email
 async function checkUserEmail(req, res, next) {
+
     let match = await service.checkmail(req, res, next)
-    console.log(match)
 
     if (match) {
         res.json({
@@ -100,6 +99,7 @@ async function addbooking(req, res, next) {
                     destination_latitude: data1.destination_lat,
                     destination_longitude: data1.destination_lng,
                     booking_time: data1.created_at,
+                    booking_status: data1.status,
                     statusmessage: "PLEASE WAIT TILL DRIVER ASSIGN TO YOU"
                 }
 

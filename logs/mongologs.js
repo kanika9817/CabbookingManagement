@@ -1,8 +1,8 @@
-//mongologs.js
 const mongo       =    require('../database/mongocon')
+const config      =    require('../properties/constant')
 const Promise     =    require('bluebird')
 
-//insert driverAssign detail to mongo
+//insert_driverAssign_detail_to_mongo
 module.exports.addDetail=(data,admin_email,date_time)=>
 { 
    return new Promise(function(resolve,reject){
@@ -15,7 +15,7 @@ module.exports.addDetail=(data,admin_email,date_time)=>
 mongo.dbo.collection("assignedDetails").insertOne(record,function(err, result)
 {if(err)
     {
-    reject(false)
+    reject(config.responseMessages.BAD_REQUEST)
     }
     else
     {
@@ -26,12 +26,12 @@ mongo.dbo.collection("assignedDetails").insertOne(record,function(err, result)
 
 }
 
-//insert bookingComplete Detail to mongo
+//insert_bookingComplete_Detail_to_mongodb
 module.exports.driverCompletedDetail=(req)=>
 { 
 return new Promise(function(resolve,reject){
 
-    let record={
+let record={
 driver_id:req.driver_id,
 booking_id:req.booking_id,
 booking_completed_time:req.completed_datetime
@@ -39,7 +39,7 @@ booking_completed_time:req.completed_datetime
 mongo.dbo.collection("completeDetail").insertOne(record,function(err, result)
 {if(err)
     {
-    reject(false)
+    reject(config.responseMessages.BAD_REQUEST)
     }
     else
     {

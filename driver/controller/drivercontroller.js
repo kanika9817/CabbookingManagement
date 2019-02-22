@@ -3,7 +3,7 @@ const mongocon       =      require('../../logs/mongologs')
 const response       =      require('../../properties/constant')
 const Promise        =      require('bluebird')
 
-//driver sinup
+//driver_sign_up
 module.exports.signup = (req, res, next) => {
     Promise.coroutine(function* () {
         let driverData = yield service.InsertDriverData(req, res)
@@ -18,6 +18,7 @@ module.exports.signup = (req, res, next) => {
                     phone_no: req.body.phone_no,
                     email: req.body.email,
                     vehicle_no: req.body.vehicle_no,
+                
 
 
                 }
@@ -37,7 +38,7 @@ module.exports.signup = (req, res, next) => {
 }
 //get driver detail
 module.exports.driverDetails = (req, res, next) => {
-    console.log(req.body)
+   
     Promise.coroutine(function* () {
         let driverDetail = yield service.showDriverDetails(req.body)
         if (driverDetail) {
@@ -85,6 +86,7 @@ module.exports.checkDriverEmail = (req, res, next) => {
 //show all bookings of driver
 module.exports.showAllBooking = (req, res) => {
     Promise.coroutine(function* () {
+        
         let resultOfBooking = yield service.showBookings(req, res)
 
         if (resultOfBooking) {
@@ -101,7 +103,7 @@ module.exports.showAllBooking = (req, res) => {
     })().catch((err) => {
         res.json({
             status: response.responseFlags.BAD_REQUEST,
-            message: response.responseMessages.BAD_REQUEST
+            message: err
         })
     })
 
@@ -144,14 +146,14 @@ module.exports.makeDriverFree = (req, res) => {
         let freeDriverStatus = yield service.freeDriver(req)
         if (freeDriverStatus) {
             res.json({
-                status: 200,
-                message: "DRIVER FREE"
+                status: response.responseFlags.ACTION_COMPLETE,
+                message: response.responseMessages["DRIVER FREE NOW"]
             })
         }
 
     })().catch((err) => {
         res.json({
-            status: 400,
+            status: response.responseFlags.ACTION_COMPLETE,
             message: response.responseMessages.NO_FREE_DRIVER
         })
     })

@@ -1,12 +1,14 @@
 
-const service     =   require('../services/admin_service')
-const mongoLogs   =   require('../../logs/mongologs')
-const response    =   require('../../properties/constant')
-const datetime    =   require('node-datetime')
-const Promise     =   require('bluebird')
-
+const service = require('../services/admin_service')
+const mongoLogs = require('../../logs/mongologs')
+const response = require('../../properties/constant')
+const datetime = require('node-datetime')
+const Promise = require('bluebird')
 
 let current, format
+/**
+ * print_booking_of_customer
+ */
 module.exports.printAllBooking = (req, res) => {
 
     Promise.coroutine(function* () {
@@ -14,7 +16,7 @@ module.exports.printAllBooking = (req, res) => {
         if (result) {
             res.json(
                 {
-                    status: response.responseFlags.LOGIN_SUCCESSFULLY,
+                    status: response.responseFlags.ACTION_COMPLETE,
                     message: response.responseMessages.DISPLAY_BOOKING_DETAILS,
                     data: result
                 }
@@ -26,24 +28,27 @@ module.exports.printAllBooking = (req, res) => {
             message: response.responseMessages.NO_DATA_FOUND
         })
     })
-
-
 }
+/**
+ * assign_driver_to_customer
+ */
 module.exports.assignDriver = (req, res, next) => {
     Promise.coroutine(function* () {
-        let match = yield service.checkDriver()
-        if (match) {
-            let updatedStatus = yield service.updateDriverStatus(match)
+        let bookingStatus = yield service.checkbooking()
+         if (bookingStatus) {
+            let match = yield service.checkDriver()
+            if (match) {
 
-            if (updatedStatus) {
-                current = datetime.create();
-                format = current.format('Y-m-d H:M:S');
-                req.format = format;
-                req.result = match
-                next()
-            }
-            else {
-                console.log("error")
+                let updatedStatus = yield service.updateDriverStatus(match)
+
+                if (updatedStatus) {
+                    current = datetime.create();
+                    format = current.format('Y-m-d H:M:S');
+                    req.format = format;
+                    req.result = match
+                    next()
+                }
+
             }
         }
     })().catch((errMsg) => {
@@ -53,6 +58,9 @@ module.exports.assignDriver = (req, res, next) => {
         })
     })
 }
+/**
+ * print_admin_details
+ */
 module.exports.printAdminDetails = (req, res, next) => {
     Promise.coroutine(function* () {
         let dataOfAdmin = yield service.showAdminData(req)
@@ -77,6 +85,10 @@ module.exports.printAdminDetails = (req, res, next) => {
     })
 
 }
+
+/**
+ * show_ongoing_booking
+ */
 module.exports.showDriverAssign = (req, res) => {
     Promise.coroutine(function* () {
         let resultOfDriver = yield service.showBookingDetails(req, res)
@@ -104,9 +116,10 @@ module.exports.showDriverAssign = (req, res) => {
         }
 
     })().catch((err) => {
+        console.log(err)
         res.json({
             status: response.responseFlags.DRIVER_NOT_FOUND,
-            message: response.responseMessages.DRIVER_NOT_FOUND
+            message: err
         })
     }
     )

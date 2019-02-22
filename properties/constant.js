@@ -36,7 +36,8 @@ exports.responseMessages = {
     "BOOKING_STATUS_NOT_UPDATED" : "BOOKING_STATUS_NOT_UPDATED",
     "HASH_NOT_DECODED_PROPERLY" : "HASH_NOT_DECODED_PROPERLY",
     "BOOKING_COMPLETED" : "BOOKING_COMPLETED",
-    "DRIVER FREE NO"     :"DRIVER FREE NOW"
+    "DRIVER FREE NOW"     :"DRIVER FREE NOW",
+    "NO BOOKING YET":"NO BOOKING YET"
     }
     //response status
     exports.responseFlags = {
